@@ -1,0 +1,110 @@
+<script>
+    // 1. MOBILE RESPONSIVE HAMBURGER OVERLAY TOGGLE
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    menuBtn.addEventListener('click', () => {
+        const isOpened = mobileMenu.classList.contains('translate-x-0');
+        if (isOpened) {
+            mobileMenu.classList.remove('translate-x-0');
+            mobileMenu.classList.add('translate-x-full');
+            menuBtn.innerHTML = '<i class="fa-solid fa-bars-staggered"></i>';
+        } else {
+            mobileMenu.classList.remove('translate-x-full');
+            mobileMenu.classList.add('translate-x-0');
+            menuBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+        }
+    });
+
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.remove('translate-x-0');
+            mobileMenu.classList.add('translate-x-full');
+            menuBtn.innerHTML = '<i class="fa-solid fa-bars-staggered"></i>';
+        });
+    });
+
+
+    // 2. HARDCORE DYNAMIC TRANSFORMATION CAROUSEL SLIDER
+    const sliderContainer = document.getElementById('slider-container');
+    const prevBtn = document.getElementById('prev-slide');
+    const nextBtn = document.getElementById('next-slide');
+    
+    let currentSlide = 0;
+    const totalSlides = sliderContainer.children.length;
+
+    function updateSliderPosition() {
+        sliderContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
+
+    nextBtn.addEventListener('click', () => {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        updateSliderPosition();
+    });
+
+    prevBtn.addEventListener('click', () => {
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        updateSliderPosition();
+    });
+
+
+    // 3. INTELLIGENT ROUTER AUTOMATION FOR LEADS WITH CONTACT DETAILS
+    // Har branch ka dynamic allocation contact numbers mapping array dict object:
+    const branchContacts = {
+        "Gumanpura": {
+            "phone": "9352666274",
+            "address": "Plot No. 4, Behind Pareek Medical Store, Gumanpura, Kota"
+        },
+        "Kunhari": {
+            "phone": "6377463270",
+            "address": "Plot No. G-26, Behind Amar Punjabi Express, Landmark City, Kota"
+        },
+        "Station Road": {
+            "phone": "9079552912",
+            "address": "Infront of Bhimganjmandi Police Station, Kota Jn."
+        }
+    };
+
+    const leadForm = document.getElementById('leadForm');
+    const statusModal = document.getElementById('statusModal');
+    const modalMessage = document.getElementById('modalMessage');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+
+    leadForm.addEventListener('submit', function(e) {
+        e.preventDefault(); // Default post submission rokne ke liye
+
+        // Inputs capture data elements
+        const name = document.getElementById('userName').value.trim();
+        const phone = document.getElementById('userPhone').value.trim();
+        const selectedBranch = document.getElementById('userBranch').value;
+        const goal = document.getElementById('userGoal').value;
+
+        // Fetch designated mapping for specific allocated branch manager contact
+        const targetBranchMeta = branchContacts[selectedBranch];
+
+        if(targetBranchMeta) {
+            // Status validation successful configuration modal activation text parsing
+            modalMessage.innerHTML = `Hey <strong>${name}</strong>, your request for <strong>${selectedBranch} branch</strong> has been registered successfully.<br><br>The Manager from this location will call you back on <strong>+91 ${phone}</strong> within 2 hours.`;
+            
+            // Open processing confirmation modal layout interface display
+            statusModal.classList.remove('hidden');
+
+            // --- ADVANCED AUTOMATION: DIRECT REDIRECTION LINK GENERATION ---
+            // Form submit hote hi manager ke WhatsApp par custom text message generator script setup
+            const whatsappText = encodeURIComponent(`Hello FitX Gym team, My name is ${name}. I am looking to join your ${selectedBranch} Branch for ${goal} program. My phone number is ${phone}. Please guide me with the active offers.`);
+            const whatsappApiUrl = `https://wa.me/${targetBranchMeta.phone}?text=${whatsappText}`;
+            
+            // Automatically open designated branch manager's WhatsApp window context logs
+            setTimeout(() => {
+                window.open(whatsappApiUrl, '_blank');
+            }, 1800);
+        }
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+        leadForm.reset();
+        statusModal.classList.add('hidden');
+    });
+</script>
+
