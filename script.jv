@@ -1,1 +1,83 @@
+// FITX GYM KOTA - LUXURY PERFORMANCE INTERACTION LOOP
+
+const branchMetaEngine = {
+    "Kunhari": { "phone": "6377463270" },
+    "Gumanpura": { "phone": "9352666274" },
+    "Station Road": { "phone": "9079552912" }
+};
+
+// 1. ADVANCED SMOOTH INTERPOLATED TRAILING CURSOR
+const cursor = document.getElementById('custom-cursor');
+let mouseX = 0, mouseY = 0;
+let cursorX = 0, cursorY = 0;
+
+if (cursor) {
+    window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    // Smooth inertia tracking function loop
+    const renderCursor = () => {
+        const ease = 0.15; // Lower = smoother trailing effect
+        cursorX += (mouseX - cursorX) * ease;
+        cursorY += (mouseY - cursorY) * ease;
+        
+        cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
+        requestAnimationFrame(renderCursor);
+    };
+    requestAnimationFrame(renderCursor);
+
+    // Interactive Hover Scaling Loops
+    const interactiveElements = document.querySelectorAll('a, button, select, input');
+    interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursor.style.transform += ' scale(1.8)';
+            cursor.style.borderColor = '#ffffff';
+            cursor.style.backgroundColor = 'rgba(255, 0, 51, 0.1)';
+        });
+        el.addEventListener('mouseleave', () => {
+            cursor.style.borderColor = '#FF0033';
+            cursor.style.backgroundColor = 'transparent';
+        });
+    });
+}
+
+// 2. LEAD CONVERSION PARSER WITH WA ROUTING BLOCKERS
+const leadForm = document.getElementById('leadForm');
+const statusModal = document.getElementById('statusModal');
+const modalMessage = document.getElementById('modalMessage');
+const closeModalBtn = document.getElementById('closeModalBtn');
+
+if (leadForm) {
+    leadForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('userName').value.trim();
+        const phone = document.getElementById('userPhone').value.trim();
+        const selectedBranch = document.getElementById('userBranch').value;
+        const goal = document.getElementById('userGoal').value;
+
+        const targetClub = branchMetaEngine[selectedBranch];
+
+        if (targetClub) {
+            modalMessage.innerHTML = `Data synchronization complete for <strong>${name}</strong>. Transferring secure payload packet to <strong>FitX ${selectedBranch} Hub</strong>.`;
+            statusModal.classList.remove('hidden');
+
+            const textFormat = `Hello FitX Gym Kota, I just registered for a trial via the main website portal:\n\nName: ${name}\nPhone: ${phone}\nClub Branch Target: ${selectedBranch}\nFitness Objective: ${goal}\n\nPlease provision my entry loop slot.`;
+            const finalWaEndpoint = `https://wa.me/${targetClub.phone}?text=${encodeURIComponent(textFormat)}`;
+
+            setTimeout(() => {
+                window.open(finalWaEndpoint, '_blank');
+            }, 1500);
+        }
+    });
+}
+
+if (closeModalBtn) {
+    closeModalBtn.addEventListener('click', () => {
+        leadForm.reset();
+        statusModal.classList.add('hidden');
+    });
+}
 
