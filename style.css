@@ -1,1 +1,36 @@
+/* ==========================================================================
+   FitX Gym Kota - Re-engineered Luxury Dark Style Matrix
+   ========================================================================== */
+
+/* 1. CUSTOM SYSTEM SCROLLBAR */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #08080A;
+}
+::-webkit-scrollbar-thumb {
+    background: #1F1F29;
+    border-radius: 20px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #FF0033;
+}
+
+/* 2. BASE PROPERTIES */
+html {
+    scroll-behavior: smooth;
+    background-color: #08080A;
+}
+
+/* 3. HARD RE-TRACKING ANIMATION HOOKS FOR SUBMIT */
+@keyframes neonPulse {
+    0% { box-shadow: 0 0 15px rgba(255, 0, 51, 0.2); }
+    50% { box-shadow: 0 0 35px rgba(255, 0, 51, 0.6); }
+    100% { box-shadow: 0 0 15px rgba(255, 0, 51, 0.2); }
+}
+
+button[type="submit"] {
+    animation: neonPulse 3s infinite ease-in-out;
+}
 
